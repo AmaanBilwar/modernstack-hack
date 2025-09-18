@@ -48,9 +48,3 @@ Public web demo required (no localhost).
 
 **Support:**  
 Convex and sponsor docs, Discord channels
-
-***
-
-Let me know if you want this as a Notion doc, checklist, or any other format!
-
-[1](https://www.convex.dev/hackathons/modernstack?dub_id=02QB8WzfUtngjxal)
