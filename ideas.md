@@ -27,4 +27,7 @@ chunking w/ progress tracking
 
 simpel aws upload and download -> optimize for speed
 
-## 
+## links 
+
+[video demo](https://youtu.be/TRAZqD1_YXw?si=CwfqUARdNc4IpEyN)
+[article](https://www.fullstack.com/labs/resources/blog/creating-a-simple-file-transfer-webrtc-react-web-application)
