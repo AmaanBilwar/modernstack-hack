@@ -1,12 +1,10 @@
-# Thank you to [this guy](https://github.com/chidokun/p2p-file-transfer) for the helping understand p2p with webrtc so easily 
 
 **Important Dates:**  
 **-  Start:** September 16, 2025  
 **-  Submission Deadline:** October 1, 2025 (12 PM PT)  
 **-  Winners Announced:** October 7, 2025  
 
-***
-
+*** 
 
 # Modern Stack Hackathon – Convex
 
@@ -51,3 +49,7 @@ Public web demo required (no localhost).
 
 **Support:**  
 Convex and sponsor docs, Discord channels
+
+
+### thank you:
+- Thank you to [this guy](https://github.com/chidokun/p2p-file-transfer) for the helping understand p2p with webrtc so easily 
