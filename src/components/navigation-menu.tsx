@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+// Read session from Better Auth client to avoid calling Convex when logged out
+import { useSession } from "@/lib/auth-client";
 import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "@/lib/auth-client";
@@ -57,9 +57,9 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export function NavigationMenuDemo() {
-  const currentUser = useQuery(api.auth.getCurrentUser, {});
-  const avatarSrc = (currentUser?.image as string) ?? undefined;
-  const avatarFallback = currentUser?.name?.[0]?.toUpperCase() ?? "U";
+  const { data: session } = useSession();
+  const avatarSrc = (session?.user?.image as string) ?? undefined;
+  const avatarFallback = session?.user?.name?.[0]?.toUpperCase() ?? "U";
 
   return (
     <div className="flex items-center justify-between w-full px-4 py-2">
@@ -200,21 +200,31 @@ export function NavigationMenuDemo() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="flex items-center">
-        <Button
-          type="button"
-          onClick={() => signOut()}
-          size="icon"
-          className="rounded-full p-0 size-10 flex items-center justify-center cursor-pointer hover:cursor-pointer"
-          aria-label="Sign out"
-          title="Sign out"
-        >
-          <Avatar className="size-6">
-            <AvatarImage src={avatarSrc} />
-            <AvatarFallback>{avatarFallback}</AvatarFallback>
-          </Avatar>
-        </Button>
-      </div>
+      <NavigationMenu viewport={false}>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger onClick={() => signOut()}>
+              <Avatar className="size-6">
+                <AvatarImage src={avatarSrc} />
+                <AvatarFallback>{avatarFallback}</AvatarFallback>
+              </Avatar>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[200px] gap-2">
+                <li>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start"
+                    onClick={() => signOut()}
+                  >
+                    Sign out
+                  </Button>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     </div>
   );
 }
