@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Card,
@@ -21,6 +21,8 @@ import { startPeer, stopPeerSession } from "@/store/peer/peerActions";
 import * as connectionAction from "@/store/connection/connectionActions";
 import { DataType, PeerConnection } from "@/helpers/peer";
 import { useAsyncState } from "@/helpers/hooks";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 const { Title } = Typography;
 type MenuItem = Required<MenuProps>["items"][number];
@@ -42,6 +44,15 @@ function getItem(
 }
 
 export default function Home() {
+  const router = useRouter();
+  const { data: session, isPending } = useSession();
+
+  useEffect(() => {
+    if (!isPending && !session) {
+      router.replace("/sign-in");
+    }
+  }, [isPending, session, router]);
+
   const peer = useAppSelector((state) => state.peer);
   const connection = useAppSelector((state) => state.connection);
   const dispatch = useAppDispatch();
@@ -92,6 +103,10 @@ export default function Home() {
       message.error("Error when sending file");
     }
   };
+
+  if (isPending || !session) {
+    return null;
+  }
 
   return (
     <Row justify={"center"} align={"top"}>
